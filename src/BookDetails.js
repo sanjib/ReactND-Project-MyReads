@@ -2,7 +2,12 @@ import React, { Component } from "react";
 
 class BookDetails extends Component {
   render() {
-    return "";
+    const { book } = this.props;
+    return (
+      <div>
+        {book.id} {book.title}
+      </div>
+    );
   }
 }
 
