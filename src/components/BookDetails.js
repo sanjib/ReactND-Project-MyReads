@@ -3,6 +3,9 @@ import Shelf from "../models/Shelf";
 import Book from "../models/Book";
 
 class BookDetails extends Component {
+  handleChnage = e => {
+    this.props.moveBookToShelf(this.props.book.id, e.target.value);
+  };
   render() {
     const book = new Book(this.props.book);
     return (
@@ -17,7 +20,7 @@ class BookDetails extends Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select value={book.shelf} onChange={this.handleChnage}>
               <option value="move" disabled>
                 Move to...
               </option>

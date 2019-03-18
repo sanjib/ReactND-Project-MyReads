@@ -25,7 +25,10 @@ class ListBooks extends Component {
                       .filter(book => book.shelf === shelfName)
                       .map(book => (
                         <li key={book.id}>
-                          <BookDetails book={book} />
+                          <BookDetails
+                            book={book}
+                            moveBookToShelf={this.props.moveBookToShelf}
+                          />
                         </li>
                       ))}
                   </ol>
