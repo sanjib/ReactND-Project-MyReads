@@ -6,9 +6,9 @@ class Shelf {
   };
   static getLabelFromKey(key) {
     const label = {};
-    label[this.keys.currentlyReading] = "Currently Reading xxx";
-    label[this.keys.wantToRead] = "Want to Read xxx";
-    label[this.keys.read] = "Read xxx";
+    label[this.keys.currentlyReading] = "Currently Reading";
+    label[this.keys.wantToRead] = "Want to Read";
+    label[this.keys.read] = "Read";
     if (label[this.keys[key]]) {
       return label[key];
     }
