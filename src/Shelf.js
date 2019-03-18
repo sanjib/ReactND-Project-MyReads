@@ -1,13 +1,15 @@
 class Shelf {
-  static currentlyReading = "currentlyReading";
-  static wantToRead = "wantToRead";
-  static read = "read";
+  static keys = {
+    currentlyReading: "currentlyReading",
+    wantToRead: "wantToRead",
+    read: "read"
+  };
   static getLabelFromKey(key) {
     const label = {};
-    label[this.currentlyReading] = "Currently Reading xxx";
-    label[this.wantToRead] = "Want to Read xxx";
-    label[this.read] = "Read xxx";
-    if (this[key]) {
+    label[this.keys.currentlyReading] = "Currently Reading xxx";
+    label[this.keys.wantToRead] = "Want to Read xxx";
+    label[this.keys.read] = "Read xxx";
+    if (label[this.keys[key]]) {
       return label[key];
     }
   }

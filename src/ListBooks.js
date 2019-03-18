@@ -6,8 +6,7 @@ import Shelf from "./Shelf";
 class ListBooks extends Component {
   render() {
     const { books } = this.props;
-    // console.log(books);
-    // console.log(Shelf);
+    const shelfNames = Object.keys(Shelf.keys);
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -15,22 +14,24 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">
-                {Shelf.getLabelFromKey(Shelf.currentlyReading)}
-              </h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {books
-                    .filter(book => book.shelf === Shelf.currentlyReading)
-                    .map(book => (
-                      <li key={book.id}>
-                        <BookDetails book={book} />
-                      </li>
-                    ))}
-                </ol>
+            {shelfNames.map(shelfName => (
+              <div className="bookshelf" key={shelfName}>
+                <h2 className="bookshelf-title">
+                  {Shelf.getLabelFromKey(shelfName)}
+                </h2>
+                <div className="bookshelf-books">
+                  <ol className="books-grid">
+                    {books
+                      .filter(book => book.shelf === shelfName)
+                      .map(book => (
+                        <li key={book.id}>
+                          <BookDetails book={book} />
+                        </li>
+                      ))}
+                  </ol>
+                </div>
               </div>
-            </div>
+            ))}
             <div className="bookshelf">
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
