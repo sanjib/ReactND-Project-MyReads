@@ -1,7 +1,28 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import * as BooksAPI from "../BooksAPI";
+// import ListBooks from "./ListBooks";
 
 class SearchBooks extends Component {
+  state = { searchTerm: "", booksQueried: [] };
+  sendBookQuery = null;
+  intervalAfterTyping = 3000;
+  onSearchTermChange = e => {
+    console.log(e.target.value);
+    this.setState({ searchTerm: e.target.value });
+    // don't query the API immediately, give a little pause to allow user to finish typing
+    clearTimeout(this.sendBookQuery);
+    this.sendBookQuery = setTimeout(() => {
+      console.log("*** query for book ***");
+      this.queryBook();
+    }, this.intervalAfterTyping);
+  };
+
+  queryBook() {
+    BooksAPI.search(this.state.searchTerm).then(books => {
+      console.log(books);
+    });
+  }
   render() {
     return (
       <div className="search-books">
@@ -18,11 +39,19 @@ class SearchBooks extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-            <input type="text" placeholder="Search by title or author" />
+            <input
+              value={this.state.searchTerm}
+              onChange={this.onSearchTermChange}
+              type="text"
+              placeholder="Search by title or author"
+            />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid" />
+          {/* <ListBooks
+            books={this.state.booksQueried}
+            moveBookToShelf={this.props.moveBookToShelf}
+          /> */}
         </div>
       </div>
     );
