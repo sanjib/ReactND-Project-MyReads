@@ -1,26 +1,29 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "../BooksAPI";
-// import ListBooks from "./ListBooks";
+import ListBooks from "./ListBooks";
 
 class SearchBooks extends Component {
   state = { searchTerm: "", booksQueried: [] };
   sendBookQuery = null;
   intervalAfterTyping = 3000;
   onSearchTermChange = e => {
-    console.log(e.target.value);
     this.setState({ searchTerm: e.target.value });
     // don't query the API immediately, give a little pause to allow user to finish typing
     clearTimeout(this.sendBookQuery);
     this.sendBookQuery = setTimeout(() => {
-      console.log("*** query for book ***");
+      console.log(`*** query for book: ${this.state.searchTerm} ***`);
       this.queryBook();
     }, this.intervalAfterTyping);
   };
 
   queryBook() {
-    BooksAPI.search(this.state.searchTerm).then(books => {
-      console.log(books);
+    BooksAPI.search(this.state.searchTerm).then(result => {
+      if (result.error) {
+        console.log(result.error);
+      } else {
+        this.setState({ booksQueried: result });
+      }
     });
   }
   render() {
@@ -48,10 +51,10 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          {/* <ListBooks
+          <ListBooks
             books={this.state.booksQueried}
             moveBookToShelf={this.props.moveBookToShelf}
-          /> */}
+          />
         </div>
       </div>
     );
