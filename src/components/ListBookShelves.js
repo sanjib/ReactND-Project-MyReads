@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AddBook from "./AddBook";
 import Shelf from "../models/Shelf";
 import ListBooks from "./ListBooks";
+import Message from "./Message";
 
 class ListBookShelves extends Component {
   render() {
@@ -12,8 +13,9 @@ class ListBookShelves extends Component {
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
-        <div className="list-books-content">
-          <div>
+        <div className="list-books-content ui container">
+          <Message />
+          <div style={{ marginTop: "30px" }}>
             {shelfNames.map(shelfName => (
               <div className="bookshelf" key={shelfName}>
                 <h2 className="bookshelf-title">
