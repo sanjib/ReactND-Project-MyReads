@@ -11,7 +11,19 @@ class ListBookShelves extends Component {
     return (
       <div className="list-books">
         <div className="list-books-title">
-          <h1>MyReads</h1>
+          <h1>
+            <img
+              style={{
+                position: "relative",
+                filter: "invert(100%)",
+                margin: "-2px 8px -14px 0"
+              }}
+              src="/book-icon.png"
+              alt="Book Icon"
+              width="50px"
+            />
+            MyReads
+          </h1>
         </div>
         <div className="list-books-content ui container">
           <Message
