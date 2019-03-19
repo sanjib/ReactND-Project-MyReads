@@ -14,7 +14,10 @@ class ListBookShelves extends Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content ui container">
-          <Message />
+          <Message
+            message={this.props.message}
+            updateMessage={this.props.updateMessage}
+          />
           <div style={{ marginTop: "30px" }}>
             {shelfNames.map(shelfName => (
               <div className="bookshelf" key={shelfName}>

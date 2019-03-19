@@ -3,11 +3,21 @@ import { Route } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import ListBookShelves from "./components/ListBookShelves";
 import SearchBooks from "./components/SearchBooks";
+import Message from "./components/Message";
 import Shelf from "./models/Shelf";
 import "./App.css";
 
 class BooksApp extends React.Component {
-  state = { books: [] };
+  state = {
+    books: [],
+    booksQueried: [],
+    message: { content: "", type: "" }
+  };
+
+  updateMessage = (content, type) => {
+    this.setState({ message: { content: content, type: type } });
+  };
+
   moveBookToShelf = (targetBook, targetShelfName) => {
     const existingBook = this.state.books.find(
       book => book.id === targetBook.id
@@ -33,20 +43,63 @@ class BooksApp extends React.Component {
   };
   updateBook = (book, shelfName) => {
     BooksAPI.update(book, shelfName).then(result => {
-      let updateMessage;
       if (
         result[shelfName] &&
         result[shelfName].find(bookResultId => bookResultId === book.id)
       ) {
-        updateMessage = `Moved ${book.title} to ${Shelf.getLabelFromKey(
-          shelfName
-        )}`;
-        console.log(updateMessage);
+        this.setState({
+          message: {
+            content: `Moved ${book.title} to ${Shelf.getLabelFromKey(
+              shelfName
+            )}`,
+            type: Message.type.positive
+          }
+        });
       } else {
-        updateMessage = `Removed ${book.title} from shelf.`;
-        console.log(updateMessage);
+        this.setState({
+          message: {
+            content: `Removed ${book.title} from shelf.`,
+            type: Message.type.positive
+          }
+        });
       }
     });
+  };
+  queryBook = searchTerm => {
+    this.setState({
+      booksQueried: [],
+      message: {
+        content: `Searching for '${searchTerm}'`,
+        type: Message.type.loading
+      }
+    });
+    BooksAPI.search(searchTerm)
+      .then(result => {
+        if (result.error) {
+          this.setState({
+            message: {
+              content: `Could not find any book for '${searchTerm}'`,
+              type: Message.type.negative
+            }
+          });
+        } else if (result) {
+          this.setState({
+            booksQueried: result,
+            message: {
+              content: `Found ${result.length} books on ${searchTerm}`,
+              type: Message.type.positive
+            }
+          });
+        }
+      })
+      .catch(() => {
+        this.setState({
+          message: {
+            content: `Could not find any book for: '${searchTerm}'`,
+            type: Message.type.negative
+          }
+        });
+      });
   };
   componentDidMount() {
     BooksAPI.getAll().then(books => {
@@ -64,14 +117,23 @@ class BooksApp extends React.Component {
             <ListBookShelves
               books={this.state.books}
               moveBookToShelf={this.moveBookToShelf}
+              message={this.state.message}
+              updateMessage={this.updateMessage}
             />
           )}
         />
         <Route
           path="/search"
-          render={() => <SearchBooks moveBookToShelf={this.moveBookToShelf} />}
+          render={() => (
+            <SearchBooks
+              books={this.state.booksQueried}
+              moveBookToShelf={this.moveBookToShelf}
+              queryBook={this.queryBook}
+              message={this.state.message}
+              updateMessage={this.updateMessage}
+            />
+          )}
         />
-        {/* <Route path="/search" component={SearchBooks} /> */}
       </div>
     );
   }

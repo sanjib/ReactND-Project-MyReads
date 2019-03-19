@@ -1,38 +1,23 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import * as BooksAPI from "../BooksAPI";
 import ListBooks from "./ListBooks";
 import Message from "./Message";
 
 class SearchBooks extends Component {
-  state = { searchTerm: "", booksQueried: [] };
+  state = { searchTerm: "" };
   sendBookQuery = null;
   intervalAfterTyping = 1000;
+
   onSearchTermChange = e => {
     this.setState({ searchTerm: e.target.value });
     // don't query the API immediately, give a little
     // pause to allow the user to finish typing
     clearTimeout(this.sendBookQuery);
     this.sendBookQuery = setTimeout(() => {
-      this.setState({ booksQueried: [] });
-      console.log(`* query for book: ${this.state.searchTerm}`);
-      this.queryBook();
+      this.props.queryBook(this.state.searchTerm);
     }, this.intervalAfterTyping);
   };
 
-  queryBook() {
-    BooksAPI.search(this.state.searchTerm).then(result => {
-      if (result.error) {
-        console.log(result.error);
-      } else if (result) {
-        // console.log(result);
-        this.setState({ booksQueried: result });
-        // console.log(this.state.booksQueried);
-      } else {
-        // console.log(result);
-      }
-    });
-  }
   render() {
     return (
       <div className="search-books ui container">
@@ -50,9 +35,12 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <Message />
+          <Message
+            message={this.props.message}
+            updateMessage={this.props.updateMessage}
+          />
           <ListBooks
-            books={this.state.booksQueried}
+            books={this.props.books}
             moveBookToShelf={this.props.moveBookToShelf}
           />
         </div>
