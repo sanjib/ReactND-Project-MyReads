@@ -1,3 +1,5 @@
+import { isArray } from "util";
+
 class Book {
   id;
   title;
@@ -9,7 +11,9 @@ class Book {
   }
   authors;
   getAuthors() {
-    return this.authors.join(", ");
+    if (this.authors && isArray(this.authors)) {
+      return this.authors.join(", ");
+    }
   }
   averageRating;
   ratingsCount;

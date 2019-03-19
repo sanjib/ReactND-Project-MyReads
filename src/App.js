@@ -8,16 +8,28 @@ import "./App.css";
 
 class BooksApp extends React.Component {
   state = { books: [] };
-  moveBookToShelf = (bookId, shelfName) => {
-    this.setState(({ books }) => ({
-      books: books.map(book => {
-        if (book.id === bookId) {
-          this.updateBook(book, shelfName);
-          book.shelf = shelfName;
-        }
-        return book;
-      })
-    }));
+  moveBookToShelf = (targetBook, targetShelfName) => {
+    const existingBook = this.state.books.find(
+      book => book.id === targetBook.id
+    );
+    if (existingBook) {
+      this.setState(({ books }) => ({
+        books: books.map(book => {
+          if (book.id === targetBook.id) {
+            this.updateBook(book, targetShelfName);
+            book.shelf = targetShelfName;
+          }
+          return book;
+        })
+      }));
+    } else {
+      this.setState(({ books }) => {
+        this.updateBook(targetBook, targetShelfName);
+        targetBook.shelf = targetShelfName;
+        books.push(targetBook);
+        return { books: books };
+      });
+    }
   };
   updateBook = (book, shelfName) => {
     BooksAPI.update(book, shelfName).then(result => {

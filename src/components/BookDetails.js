@@ -3,8 +3,14 @@ import Shelf from "../models/Shelf";
 import Book from "../models/Book";
 
 class BookDetails extends Component {
-  handleChnage = e => {
-    this.props.moveBookToShelf(this.props.book.id, e.target.value);
+  handleChange = e => {
+    this.props.moveBookToShelf(this.props.book, e.target.value);
+  };
+  handleMouseDown = e => {
+    // allows user to select the first option,
+    // otherwise handleChange won't detect the first option
+    // as it will seem already selected
+    e.target.value = "";
   };
   render() {
     const book = new Book(this.props.book);
@@ -20,7 +26,11 @@ class BookDetails extends Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select value={book.shelf} onChange={this.handleChnage}>
+            <select
+              value={book.shelf}
+              onMouseDown={this.handleMouseDown}
+              onChange={this.handleChange}
+            >
               <option value="move" disabled>
                 Move to...
               </option>
@@ -33,7 +43,9 @@ class BookDetails extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{book.getFullTitle()}</div>
+        <div className="book-title">
+          {book.getFullTitle()} {book.shelf}
+        </div>
         <div className="book-authors">{book.getAuthors()}</div>
       </div>
     );

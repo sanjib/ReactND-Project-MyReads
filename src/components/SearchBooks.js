@@ -6,13 +6,13 @@ import ListBooks from "./ListBooks";
 class SearchBooks extends Component {
   state = { searchTerm: "", booksQueried: [] };
   sendBookQuery = null;
-  intervalAfterTyping = 3000;
+  intervalAfterTyping = 1000;
   onSearchTermChange = e => {
     this.setState({ searchTerm: e.target.value });
     // don't query the API immediately, give a little pause to allow user to finish typing
     clearTimeout(this.sendBookQuery);
     this.sendBookQuery = setTimeout(() => {
-      console.log(`*** query for book: ${this.state.searchTerm} ***`);
+      console.log(`* query for book: ${this.state.searchTerm}`);
       this.queryBook();
     }, this.intervalAfterTyping);
   };
@@ -21,8 +21,12 @@ class SearchBooks extends Component {
     BooksAPI.search(this.state.searchTerm).then(result => {
       if (result.error) {
         console.log(result.error);
-      } else {
+      } else if (result) {
+        // console.log(result);
         this.setState({ booksQueried: result });
+        // console.log(this.state.booksQueried);
+      } else {
+        // console.log(result);
       }
     });
   }
