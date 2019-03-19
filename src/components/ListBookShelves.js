@@ -19,19 +19,30 @@ class ListBookShelves extends Component {
             updateMessage={this.props.updateMessage}
           />
           <div style={{ marginTop: "30px" }}>
-            {shelfNames.map(shelfName => (
-              <div className="bookshelf" key={shelfName}>
-                <h2 className="bookshelf-title">
-                  {Shelf.getLabelFromKey(shelfName)}
-                </h2>
-                <div className="bookshelf-books">
-                  <ListBooks
-                    books={books.filter(book => book.shelf === shelfName)}
-                    moveBookToShelf={this.props.moveBookToShelf}
-                  />
+            {shelfNames.map(shelfName => {
+              const filteredBooksForThisShelf = books.filter(
+                book => book.shelf === shelfName
+              );
+              return (
+                <div className="bookshelf" key={shelfName}>
+                  <h2 className="bookshelf-title">
+                    {Shelf.getLabelFromKey(shelfName)}
+                    <span
+                      className="ui circular label"
+                      style={{ position: "absolute", margin: "2px 0 0 10px" }}
+                    >
+                      {filteredBooksForThisShelf.length}
+                    </span>
+                  </h2>
+                  <div className="bookshelf-books">
+                    <ListBooks
+                      books={filteredBooksForThisShelf}
+                      moveBookToShelf={this.props.moveBookToShelf}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         <AddBook />
