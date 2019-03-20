@@ -189,6 +189,18 @@ button:active {
   cursor: pointer;
 }
 
+.book-shelf-changer.currentlyReading {
+  background-color: darkred;
+}
+
+.book-shelf-changer.wantToRead {
+  background-color: gold;
+}
+
+.book-shelf-changer.read {
+  background-color: slategray;
+}
+
 /* book cover */
 
 .book-cover {

@@ -27,7 +27,7 @@ class BookDetails extends Component {
               }}
             />
           )}
-          <div className="book-shelf-changer">
+          <div className={`book-shelf-changer ${book.shelf}`}>
             <select
               value={book.shelf}
               onMouseDown={this.handleMouseDown}

@@ -72,12 +72,39 @@ class BooksApp extends React.Component {
           }
         });
       }
+      this.updateBooksQueriedWithShelfStatus();
     });
   };
 
+  updateBooksQueriedWithShelfStatus(
+    queriedBooks = this.state.booksQueriedWithShelfStatus
+  ) {
+    const booksQueriedWithShelfStatus = queriedBooks.map(queriedBook => {
+      const bookInShelf = this.state.books.find(
+        book => book.id === queriedBook.id
+      );
+      queriedBook.shelf = bookInShelf ? bookInShelf.shelf : Shelf.keys.none;
+      return queriedBook;
+    });
+    console.log("will update booksQueriedWithShelfStatus");
+    this.setState({
+      booksQueriedWithShelfStatus: booksQueriedWithShelfStatus
+    });
+    // this.setState({
+    //   booksQueriedWithShelfStatus: booksQueriedWithShelfStatus,
+    //   message: {
+    //     content: `Found ${result.length} books on ${searchTerm}`,
+    //     type: Message.type.positive
+    //   }
+    // });
+  }
+
   queryBook = searchTerm => {
     if (searchTerm.trim() === "") {
-      this.setState({ booksQueried: [], message: { content: "", type: "" } });
+      this.setState({
+        booksQueriedWithShelfStatus: [],
+        message: Message.empty
+      });
       return;
     }
     this.setState({
@@ -97,17 +124,8 @@ class BooksApp extends React.Component {
             }
           });
         } else if (result) {
-          const booksQueriedWithShelfStatus = result.map(queriedBook => {
-            const bookInShelf = this.state.books.find(
-              book => book.id === queriedBook.id
-            );
-            queriedBook.shelf = bookInShelf
-              ? bookInShelf.shelf
-              : Shelf.keys.none;
-            return queriedBook;
-          });
+          this.updateBooksQueriedWithShelfStatus(result);
           this.setState({
-            booksQueriedWithShelfStatus: booksQueriedWithShelfStatus,
             message: {
               content: `Found ${result.length} books on ${searchTerm}`,
               type: Message.type.positive
