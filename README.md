@@ -37,6 +37,10 @@ To get started please follow the steps below:
 - Like the shelves on the main page, each book can be assigned to particular shelf or removed from a shelf
 - The colors on the book controls are really useful here to easily identify if a book belongs to a shelf (and which shelf) or not
 
+## Walkthrough Video
+
+[![Alt text](https://img.youtube.com/vi/s70TYfHhMzQ/0.jpg)](https://www.youtube.com/watch?v=s70TYfHhMzQ)
+
 ## Project Structure
 
 ```bash
