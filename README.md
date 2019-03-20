@@ -10,7 +10,7 @@ To get started please follow the steps below:
 - start the development server with `yarn start`
 - once the server starts, point your browser to http://localhost:3000/ to launch the app
 
-## Structure of the Project
+## Project Structure
 
 ```bash
 ├── CONTRIBUTING.md
@@ -22,8 +22,18 @@ To get started please follow the steps below:
 │   ├── favicon.ico # React Icon
 │   └── index.html # public index.html
 └── src
+    ├── components
+    │   ├── AddBook.js # This is the '+' button on the main page that links to the search page
+    │   ├── BookDetails.js # Book details page showing cover, title, move to shelf control and more
+    │   ├── ListBooks.js # Lists the books in a particular shelf or on the Search page
+    │   ├── ListBookShelves.js # Lists the 3 book shelves Currently Reading, Wish to Read or Read
+    │   ├── Message.js # A friendly message that shows the result of an action like move or search
+    │   └── SearchBooks.js # The search input to query the database
+    ├── models
+    │   ├── Book.js # Book model used in Book Details particularly useful for title, author and image
+    │   └── Shelf.js # Contants some static methods and enums for the various shelves
     ├── App.css # Styles
-    ├── App.js # This is the root of the app
+    ├── App.js # This is the root of the app and contains most of the states and methods
     ├── App.test.js # Used for testing
     ├── BooksAPI.js # A JavaScript API to query the book database backend
     ├── icons # Helpful images for the app
@@ -33,6 +43,27 @@ To get started please follow the steps below:
     ├── index.css # Global styles
     └── index.js # Used for DOM rendering
 ```
+
+## Main Page
+
+- The main page shows 3 shelves for books. Each shelf contains books that belong to that shelf.
+- Each books shows it cover, title and all of its authors. Each book also have a control that allows it to be moved to any of the 3 shelves or be removed from a shelf.
+- Color codes on the controls overlaying each book are used to easily distinguish the shelf a book belongs to:
+  -- Dark read: Currently Reading
+  -- Gold: Want to Read
+  -- Slate Gray: Read
+  -- Sea Green: Doesn't belong to a shelf (visible in the search page)
+
+## Search Page
+
+- The search page has an input field to query the backend database via the Book API.
+- As the user types into the search field, books that match the query are displayed on the page, along with their titles and authors.
+- The components creates a 1 second delay to allow the user to finish typing before sending the query term to the backend server.
+- Search results are cleared when there is no input
+- Search in progress, emtpy results or invalid queries are handled with an apporopriate message
+- Like the shelves on the main page, the search page re-uses the ListBooks component
+- Like the shelves on the main page, each book can be assigned to particular shelf or removed from a shelf
+- The colors on the book controls are really useful here to easily identify if a book belongs to a shelf (and which shelf) or not
 
 ## Backend Server
 
