@@ -10,6 +10,33 @@ To get started please follow the steps below:
 - start the development server with `yarn start`
 - once the server starts, point your browser to http://localhost:3000/ to launch the app
 
+## Main Page
+
+<img src="https://raw.githubusercontent.com/sanjibahmad/ReactND-Project-MyReads/master/screenshots/MyReads-Main-Page.png" />
+
+- The main page shows 3 shelves for books. Each shelf contains books that belong to that shelf.
+- The number of books available in particular shelf are displayed.
+- Each books shows it cover, title and all of its authors.
+- Each book also have a control that allows it to be moved to any of the 3 shelves or be removed from a shelf.
+- Color codes on the controls overlaying each book are used to easily distinguish the shelf a book belongs to:
+  -- Dark read: Currently Reading
+  -- Gold: Want to Read
+  -- Slate Gray: Read
+  -- Sea Green: Doesn't belong to a shelf (visible in the search page)
+
+## Search Page
+
+<img src="https://raw.githubusercontent.com/sanjibahmad/ReactND-Project-MyReads/master/screenshots/MyReads-Search-Page.png" />
+
+- The search page has an input field to query the backend database via the Book API.
+- As the user types into the search field, books that match the query are displayed on the page, along with their titles and authors.
+- The components creates a 1 second delay to allow the user to finish typing before sending the query term to the backend server.
+- Search results are cleared when there is no input
+- Search in progress, emtpy results or invalid queries are handled with an apporopriate message
+- Like the shelves on the main page, the search page re-uses the ListBooks component
+- Like the shelves on the main page, each book can be assigned to particular shelf or removed from a shelf
+- The colors on the book controls are really useful here to easily identify if a book belongs to a shelf (and which shelf) or not
+
 ## Project Structure
 
 ```bash
@@ -43,29 +70,6 @@ To get started please follow the steps below:
     ├── index.css # Global styles
     └── index.js # Used for DOM rendering
 ```
-
-## Main Page
-
-- The main page shows 3 shelves for books. Each shelf contains books that belong to that shelf.
-- The number of books available in particular shelf are displayed.
-- Each books shows it cover, title and all of its authors.
-- Each book also have a control that allows it to be moved to any of the 3 shelves or be removed from a shelf.
-- Color codes on the controls overlaying each book are used to easily distinguish the shelf a book belongs to:
-  -- Dark read: Currently Reading
-  -- Gold: Want to Read
-  -- Slate Gray: Read
-  -- Sea Green: Doesn't belong to a shelf (visible in the search page)
-
-## Search Page
-
-- The search page has an input field to query the backend database via the Book API.
-- As the user types into the search field, books that match the query are displayed on the page, along with their titles and authors.
-- The components creates a 1 second delay to allow the user to finish typing before sending the query term to the backend server.
-- Search results are cleared when there is no input
-- Search in progress, emtpy results or invalid queries are handled with an apporopriate message
-- Like the shelves on the main page, the search page re-uses the ListBooks component
-- Like the shelves on the main page, each book can be assigned to particular shelf or removed from a shelf
-- The colors on the book controls are really useful here to easily identify if a book belongs to a shelf (and which shelf) or not
 
 ## Backend Server
 
