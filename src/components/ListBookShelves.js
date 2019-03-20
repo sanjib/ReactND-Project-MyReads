@@ -8,7 +8,7 @@ class ListBookShelves extends Component {
   render() {
     const { books } = this.props;
     const shelfNames = Object.keys(Shelf.keys).filter(
-      key => key != Shelf.keys.none
+      key => key !== Shelf.keys.none
     );
     return (
       <div className="list-books">

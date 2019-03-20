@@ -10,7 +10,7 @@ import "./App.css";
 class BooksApp extends React.Component {
   state = {
     books: [],
-    booksQueried: [],
+    booksQueriedWithShelfStatus: [],
     message: { content: "", type: "" }
   };
 
@@ -73,7 +73,7 @@ class BooksApp extends React.Component {
       return;
     }
     this.setState({
-      booksQueried: [],
+      booksQueriedWithShelfStatus: [],
       message: {
         content: `Searching for '${searchTerm}'`,
         type: Message.type.loading
@@ -89,9 +89,18 @@ class BooksApp extends React.Component {
             }
           });
         } else if (result) {
-          console.log(result);
+          const booksQueriedWithShelfStatus = result.map(queriedBook => {
+            const bookInShelf = this.state.books.find(
+              book => book.id === queriedBook.id
+            );
+            queriedBook.shelf = bookInShelf
+              ? bookInShelf.shelf
+              : Shelf.keys.none;
+            return queriedBook;
+          });
+          console.log(booksQueriedWithShelfStatus);
           this.setState({
-            booksQueried: result,
+            booksQueriedWithShelfStatus: booksQueriedWithShelfStatus,
             message: {
               content: `Found ${result.length} books on ${searchTerm}`,
               type: Message.type.positive
@@ -134,7 +143,7 @@ class BooksApp extends React.Component {
           path="/search"
           render={() => (
             <SearchBooks
-              books={this.state.booksQueried}
+              books={this.state.booksQueriedWithShelfStatus}
               moveBookToShelf={this.moveBookToShelf}
               queryBook={this.queryBook}
               message={this.state.message}
