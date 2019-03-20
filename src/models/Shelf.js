@@ -10,7 +10,7 @@ class Shelf {
     label[this.keys.currentlyReading] = "Currently Reading";
     label[this.keys.wantToRead] = "Want to Read";
     label[this.keys.read] = "Read";
-    // label[this.keys.none] = "None";
+    label[this.keys.none] = "None";
     if (label[this.keys[key]]) {
       return label[key];
     }

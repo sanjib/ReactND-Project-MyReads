@@ -47,7 +47,9 @@ To get started please follow the steps below:
 ## Main Page
 
 - The main page shows 3 shelves for books. Each shelf contains books that belong to that shelf.
-- Each books shows it cover, title and all of its authors. Each book also have a control that allows it to be moved to any of the 3 shelves or be removed from a shelf.
+- The number of books available in particular shelf are displayed.
+- Each books shows it cover, title and all of its authors.
+- Each book also have a control that allows it to be moved to any of the 3 shelves or be removed from a shelf.
 - Color codes on the controls overlaying each book are used to easily distinguish the shelf a book belongs to:
   -- Dark read: Currently Reading
   -- Gold: Want to Read

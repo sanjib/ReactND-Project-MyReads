@@ -86,17 +86,9 @@ class BooksApp extends React.Component {
       queriedBook.shelf = bookInShelf ? bookInShelf.shelf : Shelf.keys.none;
       return queriedBook;
     });
-    console.log("will update booksQueriedWithShelfStatus");
     this.setState({
       booksQueriedWithShelfStatus: booksQueriedWithShelfStatus
     });
-    // this.setState({
-    //   booksQueriedWithShelfStatus: booksQueriedWithShelfStatus,
-    //   message: {
-    //     content: `Found ${result.length} books on ${searchTerm}`,
-    //     type: Message.type.positive
-    //   }
-    // });
   }
 
   queryBook = searchTerm => {
@@ -155,8 +147,7 @@ class BooksApp extends React.Component {
         <Route
           exact
           path="/"
-          render={history => {
-            // console.log("in /", history);
+          render={() => {
             return (
               <ListBookShelves
                 books={this.state.books}
@@ -170,8 +161,7 @@ class BooksApp extends React.Component {
         />
         <Route
           path="/search"
-          render={history => {
-            // console.log("in /search", history);
+          render={() => {
             return (
               <SearchBooks
                 books={this.state.booksQueriedWithShelfStatus}

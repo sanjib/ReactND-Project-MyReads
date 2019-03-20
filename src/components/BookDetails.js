@@ -6,12 +6,6 @@ class BookDetails extends Component {
   handleChange = e => {
     this.props.moveBookToShelf(this.props.book, e.target.value);
   };
-  // handleMouseDown = e => {
-  //   // allows user to select the first option,
-  //   // otherwise handleChange won't detect the first option
-  //   // as it will seem already selected
-  //   e.target.value = "";
-  // };
   render() {
     const book = new Book(this.props.book);
     return (
@@ -37,11 +31,17 @@ class BookDetails extends Component {
                 Move to...
               </option>
               <option value={Shelf.keys.currentlyReading}>
-                Currently Reading
+                {Shelf.getLabelFromKey(Shelf.keys.currentlyReading)}
               </option>
-              <option value={Shelf.keys.wantToRead}>Want to Read</option>
-              <option value={Shelf.keys.read}>Read</option>
-              <option value={Shelf.keys.none}>None</option>
+              <option value={Shelf.keys.wantToRead}>
+                {Shelf.getLabelFromKey(Shelf.keys.wantToRead)}
+              </option>
+              <option value={Shelf.keys.read}>
+                {Shelf.getLabelFromKey(Shelf.keys.read)}
+              </option>
+              <option value={Shelf.keys.none}>
+                {Shelf.getLabelFromKey(Shelf.keys.none)}
+              </option>
             </select>
           </div>
         </div>
