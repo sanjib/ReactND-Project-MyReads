@@ -2,8 +2,8 @@ class Shelf {
   static keys = {
     currentlyReading: "currentlyReading",
     wantToRead: "wantToRead",
-    read: "read"
-    // none: "none"
+    read: "read",
+    none: "none"
   };
   static getLabelFromKey(key) {
     const label = {};

@@ -41,6 +41,7 @@ class BooksApp extends React.Component {
       });
     }
   };
+
   updateBook = (book, shelfName) => {
     BooksAPI.update(book, shelfName).then(result => {
       if (
@@ -65,7 +66,12 @@ class BooksApp extends React.Component {
       }
     });
   };
+
   queryBook = searchTerm => {
+    if (searchTerm.trim() === "") {
+      this.setState({ booksQueried: [], message: { content: "", type: "" } });
+      return;
+    }
     this.setState({
       booksQueried: [],
       message: {
@@ -83,6 +89,7 @@ class BooksApp extends React.Component {
             }
           });
         } else if (result) {
+          console.log(result);
           this.setState({
             booksQueried: result,
             message: {
@@ -101,6 +108,7 @@ class BooksApp extends React.Component {
         });
       });
   };
+
   componentDidMount() {
     BooksAPI.getAll().then(books => {
       this.setState({ books: books });
