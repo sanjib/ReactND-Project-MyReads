@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
 class Message extends Component {
+  static empty = {
+    content: "",
+    type: ""
+  };
+
   static type = {
     info: "info",
     warning: "warning",

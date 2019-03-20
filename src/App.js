@@ -11,7 +11,15 @@ class BooksApp extends React.Component {
   state = {
     books: [],
     booksQueriedWithShelfStatus: [],
-    message: { content: "", type: "" }
+    message: Message.empty
+  };
+
+  emptyMessage = () => {
+    this.setState({ message: Message.empty });
+  };
+
+  emptyQueriedBooks = () => {
+    this.setState({ booksQueriedWithShelfStatus: [] });
   };
 
   updateMessage = (content, type) => {
@@ -98,7 +106,6 @@ class BooksApp extends React.Component {
               : Shelf.keys.none;
             return queriedBook;
           });
-          console.log(booksQueriedWithShelfStatus);
           this.setState({
             booksQueriedWithShelfStatus: booksQueriedWithShelfStatus,
             message: {
@@ -130,26 +137,35 @@ class BooksApp extends React.Component {
         <Route
           exact
           path="/"
-          render={() => (
-            <ListBookShelves
-              books={this.state.books}
-              moveBookToShelf={this.moveBookToShelf}
-              message={this.state.message}
-              updateMessage={this.updateMessage}
-            />
-          )}
+          render={history => {
+            // console.log("in /", history);
+            return (
+              <ListBookShelves
+                books={this.state.books}
+                moveBookToShelf={this.moveBookToShelf}
+                message={this.state.message}
+                updateMessage={this.updateMessage}
+                emptyMessage={this.emptyMessage}
+              />
+            );
+          }}
         />
         <Route
           path="/search"
-          render={() => (
-            <SearchBooks
-              books={this.state.booksQueriedWithShelfStatus}
-              moveBookToShelf={this.moveBookToShelf}
-              queryBook={this.queryBook}
-              message={this.state.message}
-              updateMessage={this.updateMessage}
-            />
-          )}
+          render={history => {
+            // console.log("in /search", history);
+            return (
+              <SearchBooks
+                books={this.state.booksQueriedWithShelfStatus}
+                moveBookToShelf={this.moveBookToShelf}
+                queryBook={this.queryBook}
+                message={this.state.message}
+                updateMessage={this.updateMessage}
+                emptyMessage={this.emptyMessage}
+                emptyQueriedBooks={this.emptyQueriedBooks}
+              />
+            );
+          }}
         />
       </div>
     );

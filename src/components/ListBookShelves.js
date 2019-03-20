@@ -5,6 +5,10 @@ import ListBooks from "./ListBooks";
 import Message from "./Message";
 
 class ListBookShelves extends Component {
+  componentDidMount() {
+    this.props.emptyMessage();
+  }
+
   render() {
     const { books } = this.props;
     const shelfNames = Object.keys(Shelf.keys).filter(

@@ -18,6 +18,11 @@ class SearchBooks extends Component {
     }, this.intervalAfterTyping);
   };
 
+  componentDidMount() {
+    this.props.emptyMessage();
+    this.props.emptyQueriedBooks();
+  }
+
   render() {
     return (
       <div className="search-books ui container">
