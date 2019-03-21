@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import * as BooksAPI from "../BooksAPI";
 import ListBooks from "./ListBooks";
 import Message from "./Message";
 
@@ -14,13 +15,46 @@ class SearchBooks extends Component {
     // pause to allow the user to finish typing
     clearTimeout(this.sendBookQuery);
     this.sendBookQuery = setTimeout(() => {
-      this.props.queryBook(this.state.searchTerm);
+      this.queryBook(this.state.searchTerm);
     }, this.intervalAfterTyping);
+  };
+
+  queryBook = searchTerm => {
+    this.props.emptyBooksQueried();
+    if (searchTerm.trim() === "") {
+      this.props.emptyMessage();
+      return;
+    }
+    this.props.updateMessage(
+      `Searching for '${searchTerm}'`,
+      Message.type.loading
+    );
+    BooksAPI.search(searchTerm)
+      .then(result => {
+        if (result.error) {
+          this.props.updateMessage(
+            `Could not find any book for '${searchTerm}'`,
+            Message.type.negative
+          );
+        } else if (result) {
+          this.props.updateBooksQueriedWithShelfStatus(result);
+          this.props.updateMessage(
+            `Found ${result.length} books on ${searchTerm}`,
+            Message.type.positive
+          );
+        }
+      })
+      .catch(() => {
+        this.props.updateMessage(
+          `Could not find any book for: '${searchTerm}'`,
+          Message.type.negative
+        );
+      });
   };
 
   componentDidMount() {
     this.props.emptyMessage();
-    this.props.emptyQueriedBooks();
+    this.props.emptyBooksQueried();
   }
 
   render() {
@@ -45,7 +79,7 @@ class SearchBooks extends Component {
             updateMessage={this.props.updateMessage}
           />
           <ListBooks
-            books={this.props.books}
+            books={this.props.booksQueried}
             moveBookToShelf={this.props.moveBookToShelf}
           />
         </div>

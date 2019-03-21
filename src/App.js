@@ -10,20 +10,20 @@ import "./App.css";
 class BooksApp extends React.Component {
   state = {
     books: [],
-    booksQueriedWithShelfStatus: [],
+    booksQueried: [],
     message: Message.empty
   };
 
   emptyMessage = () => {
-    this.setState({ message: Message.empty });
-  };
-
-  emptyQueriedBooks = () => {
-    this.setState({ booksQueriedWithShelfStatus: [] });
+    this.updateMessage("", "");
   };
 
   updateMessage = (content, type) => {
     this.setState({ message: { content: content, type: type } });
+  };
+
+  emptyBooksQueried = () => {
+    this.setState({ booksQueried: [] });
   };
 
   moveBookToShelf = (targetBook, targetShelfName) => {
@@ -76,63 +76,19 @@ class BooksApp extends React.Component {
     });
   };
 
-  updateBooksQueriedWithShelfStatus(
-    queriedBooks = this.state.booksQueriedWithShelfStatus
-  ) {
-    const booksQueriedWithShelfStatus = queriedBooks.map(queriedBook => {
+  updateBooksQueriedWithShelfStatus = (
+    booksQueried = this.state.booksQueried
+  ) => {
+    const booksQueriedWithShelfStatus = booksQueried.map(bookQueried => {
       const bookInShelf = this.state.books.find(
-        book => book.id === queriedBook.id
+        book => book.id === bookQueried.id
       );
-      queriedBook.shelf = bookInShelf ? bookInShelf.shelf : Shelf.keys.none;
-      return queriedBook;
+      bookQueried.shelf = bookInShelf ? bookInShelf.shelf : Shelf.keys.none;
+      return bookQueried;
     });
     this.setState({
-      booksQueriedWithShelfStatus: booksQueriedWithShelfStatus
+      booksQueried: booksQueriedWithShelfStatus
     });
-  }
-
-  queryBook = searchTerm => {
-    if (searchTerm.trim() === "") {
-      this.setState({
-        booksQueriedWithShelfStatus: [],
-        message: Message.empty
-      });
-      return;
-    }
-    this.setState({
-      booksQueriedWithShelfStatus: [],
-      message: {
-        content: `Searching for '${searchTerm}'`,
-        type: Message.type.loading
-      }
-    });
-    BooksAPI.search(searchTerm)
-      .then(result => {
-        if (result.error) {
-          this.setState({
-            message: {
-              content: `Could not find any book for '${searchTerm}'`,
-              type: Message.type.negative
-            }
-          });
-        } else if (result) {
-          this.updateBooksQueriedWithShelfStatus(result);
-          this.setState({
-            message: {
-              content: `Found ${result.length} books on ${searchTerm}`,
-              type: Message.type.positive
-            }
-          });
-        }
-      })
-      .catch(() => {
-        this.setState({
-          message: {
-            content: `Could not find any book for: '${searchTerm}'`,
-            type: Message.type.negative
-          }
-        });
-      });
   };
 
   componentDidMount() {
@@ -164,13 +120,15 @@ class BooksApp extends React.Component {
           render={() => {
             return (
               <SearchBooks
-                books={this.state.booksQueriedWithShelfStatus}
+                booksQueried={this.state.booksQueried}
                 moveBookToShelf={this.moveBookToShelf}
-                queryBook={this.queryBook}
                 message={this.state.message}
                 updateMessage={this.updateMessage}
                 emptyMessage={this.emptyMessage}
-                emptyQueriedBooks={this.emptyQueriedBooks}
+                emptyBooksQueried={this.emptyBooksQueried}
+                updateBooksQueriedWithShelfStatus={
+                  this.updateBooksQueriedWithShelfStatus
+                }
               />
             );
           }}
