@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import ListBookShelves from "./components/ListBookShelves";
 import SearchBooks from "./components/SearchBooks";
@@ -100,39 +100,41 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route
-          exact
-          path="/"
-          render={() => {
-            return (
-              <ListBookShelves
-                books={this.state.books}
-                moveBookToShelf={this.moveBookToShelf}
-                message={this.state.message}
-                updateMessage={this.updateMessage}
-                emptyMessage={this.emptyMessage}
-              />
-            );
-          }}
-        />
-        <Route
-          path="/search"
-          render={() => {
-            return (
-              <SearchBooks
-                booksQueried={this.state.booksQueried}
-                moveBookToShelf={this.moveBookToShelf}
-                message={this.state.message}
-                updateMessage={this.updateMessage}
-                emptyMessage={this.emptyMessage}
-                emptyBooksQueried={this.emptyBooksQueried}
-                updateBooksQueriedWithShelfStatus={
-                  this.updateBooksQueriedWithShelfStatus
-                }
-              />
-            );
-          }}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return (
+                <ListBookShelves
+                  books={this.state.books}
+                  moveBookToShelf={this.moveBookToShelf}
+                  message={this.state.message}
+                  updateMessage={this.updateMessage}
+                  emptyMessage={this.emptyMessage}
+                />
+              );
+            }}
+          />
+          <Route
+            path="/search"
+            render={() => {
+              return (
+                <SearchBooks
+                  booksQueried={this.state.booksQueried}
+                  moveBookToShelf={this.moveBookToShelf}
+                  message={this.state.message}
+                  updateMessage={this.updateMessage}
+                  emptyMessage={this.emptyMessage}
+                  emptyBooksQueried={this.emptyBooksQueried}
+                  updateBooksQueriedWithShelfStatus={
+                    this.updateBooksQueriedWithShelfStatus
+                  }
+                />
+              );
+            }}
+          />
+        </Switch>
       </div>
     );
   }
