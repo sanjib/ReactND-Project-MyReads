@@ -1,14 +1,21 @@
 # MyReads Project
 
-This is the completed version of the MyReads project for Udacity's React Fundamentals course. The project provides a React app that allows the user to query a book database and add books to preferred shelves. There are three shelves available: Currently Reading, Want to Read and Read. Books may also be moved from one shelf to another. The app provides two screens: all the shelves with the list of books and a book search screen that queries the remote database. Books are displayed with their covers and have controls that allow the user to move the book to their shelf of choice.
+This is the completed version of the MyReads project for Udacity's React Fundamentals course. The project provides a React app that allows the user to query a book database and add books to preferred shelves. There are three shelves available: Currently Reading, Want to Read and Read. Books may also be moved from one shelf to another.
+
+The app provides two screens:
+
+1. All the shelves with the list of books
+2. A book search screen that queries the remote database
+
+Every books is displayed with its cover, title, authors and a control that allows the user to move the book to their shelf of choice.
 
 ## Installation
 
 To get started please follow the steps below:
 
-- install all project dependencies with `yarn install`
-- start the development server with `yarn start`
-- once the server starts, point your browser to http://localhost:3000/ to launch the app
+- Install all project dependencies with `yarn install`
+- Start the development server with `yarn start`
+- Once the server starts, point your browser to http://localhost:3000/ to launch the app
 
 ## Main Page
 
@@ -17,12 +24,13 @@ To get started please follow the steps below:
 - The main page shows 3 shelves for books. Each shelf contains books that belong to that shelf.
 - The number of books available in particular shelf are displayed.
 - Each books shows it cover, title and all of its authors.
-- Each book also have a control that allows it to be moved to any of the 3 shelves or be removed from a shelf.
+- Each book also has a control that allows it to be moved to any of the 3 shelves or be removed from a shelf.
 - Color codes on the controls overlaying each book are used to easily distinguish the shelf a book belongs to:
-  -- Dark read: Currently Reading
-  -- Gold: Want to Read
-  -- Slate Gray: Read
-  -- Sea Green: Doesn't belong to a shelf (visible in the search page)
+
+  - Dark read: Currently Reading
+  - Gold: Want to Read
+  - Slate Gray: Read
+  - Sea Green: Doesn't belong to a shelf (visible in the search page)
 
 ## Search Page
 
@@ -31,15 +39,19 @@ To get started please follow the steps below:
 - The search page has an input field to query the backend database via the Book API.
 - As the user types into the search field, books that match the query are displayed on the page, along with their titles and authors.
 - The components creates a 1 second delay to allow the user to finish typing before sending the query term to the backend server.
-- Search results are cleared when there is no input
-- Search in progress, emtpy results or invalid queries are handled with an apporopriate message
-- Like the shelves on the main page, the search page re-uses the ListBooks component
-- Like the shelves on the main page, each book can be assigned to particular shelf or removed from a shelf
-- The colors on the book controls are really useful here to easily identify if a book belongs to a shelf (and which shelf) or not
+- Search results are cleared when there is no input.
+- Search in progress, emtpy results or invalid queries are handled with an apporopriate message.
+- The search page re-uses the ListBooks component (like the main page).
+- Each book can be assigned to particular shelf or removed from a shelf (like the move book feature on the main page).
+- The colors on the book controls (dark red, gold, slate gray, sea green) visually help the user to easily identify which shelf a book belongs or if it doesn't belong in any shelf.
 
 ## Walkthrough Video
 
-[![Alt text](https://img.youtube.com/vi/s70TYfHhMzQ/0.jpg)](https://www.youtube.com/watch?v=s70TYfHhMzQ)
+You can watch the walkthrough video of the app by clicking the link or image beolow:
+
+https://www.youtube.com/watch?v=s70TYfHhMzQ
+
+[![Alt MyReads app video walkthrough](https://img.youtube.com/vi/s70TYfHhMzQ/0.jpg)](https://www.youtube.com/watch?v=s70TYfHhMzQ)
 
 ## Project Structure
 
