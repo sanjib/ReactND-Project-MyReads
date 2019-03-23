@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import * as BooksAPI from "../BooksAPI";
 import ListBooks from "./ListBooks";
 import Message from "./Message";
@@ -87,5 +88,15 @@ class SearchBooks extends Component {
     );
   }
 }
+
+SearchBooks.propTypes = {
+  message: PropTypes.object.isRequired,
+  updateMessage: PropTypes.func.isRequired,
+  emptyMessage: PropTypes.func.isRequired,
+  booksQueried: PropTypes.arrayOf(PropTypes.object).isRequired,
+  emptyBooksQueried: PropTypes.func.isRequired,
+  updateBooksQueriedWithShelfStatus: PropTypes.func.isRequired,
+  moveBookToShelf: PropTypes.func.isRequired
+};
 
 export default SearchBooks;

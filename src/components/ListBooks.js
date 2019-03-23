@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import BookDetails from "./BookDetails";
 
 const ListBooks = props => {
@@ -11,6 +12,11 @@ const ListBooks = props => {
       ))}
     </ol>
   );
+};
+
+ListBooks.proptTypes = {
+  books: PropTypes.arrayOf(PropTypes.object).isRequired,
+  moveBookToShelf: PropTypes.func.isRequired
 };
 
 export default ListBooks;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import AddBook from "./AddBook";
 import Shelf from "../models/Shelf";
 import ListBooks from "./ListBooks";
@@ -68,5 +69,13 @@ class ListBookShelves extends Component {
     );
   }
 }
+
+ListBookShelves.propTypes = {
+  message: PropTypes.object.isRequired,
+  updateMessage: PropTypes.func.isRequired,
+  emptyMessage: PropTypes.func.isRequired,
+  books: PropTypes.arrayOf(PropTypes.object).isRequired,
+  moveBookToShelf: PropTypes.func.isRequired
+};
 
 export default ListBookShelves;

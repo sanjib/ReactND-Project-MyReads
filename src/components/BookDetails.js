@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Shelf from "../models/Shelf";
 import Book from "../models/Book";
 
@@ -51,5 +52,9 @@ class BookDetails extends Component {
     );
   }
 }
+
+BookDetails.propTypes = {
+  book: PropTypes.object.isRequired
+};
 
 export default BookDetails;

@@ -15,7 +15,7 @@ class BooksApp extends React.Component {
   };
 
   emptyMessage = () => {
-    this.updateMessage("", "");
+    this.setState({ message: Message.empty });
   };
 
   updateMessage = (content, type) => {

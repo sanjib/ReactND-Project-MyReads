@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Message extends Component {
   static empty = {
@@ -54,5 +55,10 @@ class Message extends Component {
     }
   }
 }
+
+Message.propTypes = {
+  message: PropTypes.object.isRequired,
+  updateMessage: PropTypes.func.isRequired
+};
 
 export default Message;
